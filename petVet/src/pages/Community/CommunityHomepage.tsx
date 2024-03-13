@@ -12,7 +12,7 @@ const CommunityHomepage = () => {
           </div>
           <div>
             <Link to={"/community-showcase"}>
-              <button className="flex items-center justify-center gap-2 px-6 py-2 text-2xl font-semibold bg-btnBlueColor text-white hover:bg-white hover:text-blueText rounded-xl hover:border hover:border-bluetext">
+              <button className="flex items-center justify-center gap-2 px-6 py-2 text-2xl font-semibold bg-btnBlueColor text-white hover:bg-white hover:text-blueText rounded-xl border border-transparent hover:border-black hover:border-2 ">
                 Explore
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

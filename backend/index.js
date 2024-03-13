@@ -16,10 +16,12 @@ mongoose.connection.on("connected",()=>{
     console.log("database se manjoori mil gyi hai buddy")
 })
 
+const publicUser=require("./src/api/Routes/users/public/user")
 
 
-const community=require("../community/community");
-app.use("/community",community)
+app.use("/user", publicUser);
+// const community=require("../community/community");
+// app.use("/community",community)
 
 
 
