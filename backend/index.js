@@ -16,15 +16,20 @@ mongoose.connection.on("connected",()=>{
     console.log("database se manjoori mil gyi hai buddy")
 })
 
-const publicUser=require("./src/api/Routes/users/public/user")
+// pet parent public
+const petParent=require("./src/api/Routes/petParents/route")
+app.use("/petParent", petParent);
+
+// veterinarian public
+const veterinarian=require("./src/api/Routes/vets/route")
+app.use("/veterinarian",veterinarian)
+
+// common public
+const common=require("./src/api/Routes/common/route")
+app.use("user",common)
 
 
-app.use("/user", publicUser);
-// const community=require("../community/community");
-// app.use("/community",community)
 
-
-
-app.listen(300,(req,res)=>{
+app.listen(3000,(req,res)=>{
     console.log("connected t port 3000")
 })

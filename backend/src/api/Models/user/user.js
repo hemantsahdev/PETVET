@@ -1,69 +1,26 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 3,
+  username:{
+    type:String,
   },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: 5,
+  email:{
+    type:String,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-  },
-  pincode: {
-    type: String,
-    required: true,
-  },
-  city: String,
-  state: String,
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  client: {
-    type: Boolean,
-    default: false,
-  },
-  vet: {
-    type: Boolean,
-    default: false,
-  },
-  mobile: {
-    type: Number,
-    validate: {
-      validator: function (v) {
-        return /^[0-9]{10}$/.test(v);
-      },
-      message: (props) =>
-        `${props.value} is not a valid 10-digit mobile number!`,
-    },
-  },
-  gender: {
-    type: String,
-    required: function () {
-      return this.vet === true;
-    },
-  },
-  speciality: {
-    type: String,
-    required: function () {
-      return this.vet === true;
-    },
-  },
+  password:{
+    type:String,
+    required:true
+  }
 });
+
+userSchema.index({username:1,email:1},{unique:true,sparse:true});
 
 const USERS = mongoose.model("USERS", userSchema);
 
 module.exports = USERS;
+
+
+// indexing in mongoDB
+// Indexes are data structures that store a small portion of the collection’s 
+// data set in an easy-to-traverse form. Indexes improve the speed of data retrieval 
+// operations on a MongoDB collection by providing efficient access paths to documents.
