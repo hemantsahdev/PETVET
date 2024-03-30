@@ -1,11 +1,65 @@
-import Layout from './layout/Layout'
-
+import { Route, Routes } from "react-router-dom";
+import MainLayout from './layout/MainLayout';
+import VetLayout from "./layout/vets/VetLayout";
 
 
 const App = () => {
   return (
-    <Layout/>
-    )
+    <>
+   
+        
+          <VetLayout/>
+
+          {/* <MainLayout/> */}
+
+     
+    </>
+  );
 }
 
 export default App
+
+
+// const App = () => {
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+//   const [userRole, setUserRole] = useState("");
+
+//   useEffect(() => {
+//     // Check user authentication status upon component mount
+//     checkAuthenticationStatus();
+//   }, []);
+
+//   const checkAuthenticationStatus = async () => {
+//     // Check authentication status by sending a request to the backend server
+//     try {
+//       const response = await fetch("/api/auth/check", {
+//         method: "GET",
+//         credentials: "include", // Include cookies for authentication
+//       });
+//       if (response.ok) {
+//         const userData = await response.json();
+//         setIsAuthenticated(true);
+//         setUserRole(userData.role);
+//       } else {
+//         setIsAuthenticated(false);
+//         setUserRole("");
+//       }
+//     } catch (error) {
+//       console.error("Error checking authentication status:", error);
+//     }
+//   };
+
+//   return (
+//     <Router>
+//       {isAuthenticated ? (
+//         userRole === "vet" ? (
+//           <VetRouter />
+//         ) : (
+//           <UserRouter />
+//         )
+//       ) : (
+//         <PublicRouter />
+//       )}
+//     </Router>
+//   );
+// };

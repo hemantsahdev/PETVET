@@ -1,3 +1,6 @@
+// This is the register page for the clients ( any other specific register page will be in its desired folder)
+
+
 import axios from "axios";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { Bounce, toast, ToastContainer } from "react-toastify";

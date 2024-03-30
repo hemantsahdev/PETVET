@@ -1,16 +1,16 @@
 
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 
 import Login from "../pages/Login";
 import Contact from "../pages/Contact";
 import Services from "../pages/Services";
-import Register from "../pages/SignIn";
+import Register from "../pages/Register";
 import Doctors from "../pages/medical/Doctors/Doctors";
 import DoctorDetails from "../pages/medical/Doctors/DoctorDetails";
 import Homepage from "../pages/Homepage";
 
-const Routers = () => {
+const MainRouter = () => {
   return (
     
       <Routes>
@@ -26,4 +26,4 @@ const Routers = () => {
   );
 };
 
-export default Routers;
+export default MainRouter;

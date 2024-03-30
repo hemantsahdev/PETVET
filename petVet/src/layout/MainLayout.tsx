@@ -1,18 +1,18 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import Routers from "../routes/Routers";
+import MainRouter from "../routes/MainRouter";
 
-const Layout = () => {
+const MainLayout = () => {
   return (
     <>
       <Header />
       <main>
-        <Routers />
+        <MainRouter />
       </main>
       <Footer />
     </>
   );
 };
 
-export default Layout;
+export default MainLayout;
