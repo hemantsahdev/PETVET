@@ -9,8 +9,8 @@ import feature from "../assets/featureImg.jpg";
 import { FcVideoCall } from "react-icons/fc";
 import faq from "../assets/faqCat.jpg";
 import About from "./About";
-import ServicesList from "../components/medical/DealsIn/ServicesList";
-import DoctorList from "../components/medical/Doctors/DoctorList";
+import ServicesList from "../components/medical/Vets/DealsIn/ServicesList";
+import DoctorList from "../components/medical/Vets/Doctors/DoctorList";
 
 const Homepage = () => {
   return (

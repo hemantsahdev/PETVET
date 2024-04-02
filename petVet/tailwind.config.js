@@ -11,6 +11,12 @@ export default withMT({
   theme: {
     extend: {
       colors: {
+
+          primaryBlue:"#425ea9",
+          backgroundWhite:"#ededed",
+          creamContrast:"#eee5e0",
+          magentaHighlight:"#9d3c9d",
+          
         primaryColor: "#000",
         yellowColor: "#FEB60D",
         purpleColor: "#9771FF",
