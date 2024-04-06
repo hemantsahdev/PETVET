@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlineStar } from "react-icons/ai";
-import star from "../../../assets/star.png";
+import star from "../../../../assets/star.png";
 import { Link } from "react-router-dom";
 
 const DoctorCard = ({ doctor }) => {

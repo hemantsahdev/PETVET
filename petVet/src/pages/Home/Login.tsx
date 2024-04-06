@@ -6,8 +6,10 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import {useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate=useNavigate();
   return (
     <main className="h-screen w-full flex justify-center items-center ">
       <Card placeholder={null} color="transparent" shadow={false}>
@@ -90,9 +92,9 @@ const Login = () => {
             className="mt-4 text-center font-normal"
           >
             Don't have an account?{" "}
-            <a href="#" className="font-medium text-gray-900">
+            <button  className="font-medium text-gray-900" onClick={()=>navigate("/registration")} >
               Register here!
-            </a>
+            </button>
           </Typography>
         </form>
       </Card>

@@ -1,16 +1,16 @@
 /* eslint-disable no-nonoctal-decimal-escape */
 import { Link } from "react-router-dom";
-import doctor from "../assets/homepageDoctor.jpg";
-import vetDoctor from "../assets/vetHomePage.jpg";
+import doctor from "../../assets/homepageDoctor.jpg";
+import vetDoctor from "../../assets/vetHomePage.jpg";
 import { BsArrowRight } from "react-icons/bs";
-import location from "../assets/location.png";
-import appointment from "../assets/appointment.jpg";
-import feature from "../assets/featureImg.jpg";
+import location from "../../assets/location.png";
+import appointment from "../../assets/appointment.jpg";
+import feature from "../../assets/featureImg.jpg";
 import { FcVideoCall } from "react-icons/fc";
-import faq from "../assets/faqCat.jpg";
+import faq from "../../assets/faqCat.jpg";
 import About from "./About";
-import ServicesList from "../components/medical/Vets/DealsIn/ServicesList";
-import DoctorList from "../components/medical/Vets/Doctors/DoctorList";
+import ServicesList from "../../components/medical/Vets/DealsIn/ServicesList";
+import DoctorList from "../../components/medical/Vets/Doctors/DoctorList";
 
 const Homepage = () => {
   return (

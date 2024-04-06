@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Dashboard from '../pages/medical/Vets/Dashboard';
 import ManageSlots from '../pages/medical/Vets/ManageSlots/ManageSlots';
 import VetRegistrationForm from '../pages/medical/Vets/VetRegistrationForm';
-import Login from '../pages/Login';
+import Login from '../pages/Home/Login';
 
 const VetRouter = () => {
   return (
