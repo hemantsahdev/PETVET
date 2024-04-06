@@ -12,11 +12,14 @@ export default withMT({
     extend: {
       colors: {
 
+        // my template colors
           primaryBlue:"#425ea9",
           backgroundWhite:"#ededed",
           creamContrast:"#eee5e0",
           magentaHighlight:"#9d3c9d",
-          
+          // ==========================
+
+          // yeh vaise hi hai
         primaryColor: "#000",
         yellowColor: "#FEB60D",
         purpleColor: "#9771FF",
