@@ -14,47 +14,54 @@ const registerController=async(req,res)=>{
     }
 
     try {
-        // Check if the username or email already exists in the database
-        const existingVet= await VETERINARIAN.findOne({
-          $or: [{ username }, { email }],
-        });
+      // Check if the username or email already exists in the database
+      const existingVet = await VETERINARIAN.findOne({
+        $or: [{ username }, { email }],
+      });
 
-        if (existingVet) {
-          return res
-            .status(409)
-            .json({ message: "Username or email already exists" });
-        }
+      if (existingVet) {
+        return res
+          .status(409)
+          .json({ message: "Username or email already exists" });
+      }
 
-        const hashedPassword= await bcrypt.hash(password,10)
-        // Create a new user instance
-        const newVet = new VETERINARIAN({
-          name,
-          username,
-          email,
-          password:hashedPassword, // Note: Password should be hashed before saving (not shown here)
-          pincode,
-          city,
-          state,
-          mobile,
-          gender,
-          speciality,
-        });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      // Create a new user instance
+      const newVet = new VETERINARIAN({
+        name,
+        username,
+        email,
+        password: hashedPassword, // Note: Password should be hashed before saving (not shown here)
+        pincode,
+        city,
+        state,
+        mobile,
+        gender,
+        speciality,
+      });
+      // Save the new user to the database
+      await newVet.save();
 
-        // Save the new user to the database
-        await newVet.save();
+      const newUser = new USERS({
+        username,
+        email,
+        password: hashedPassword,
+      });
+      await newUser.save()
 
-        // generating jwt token
-        const token = jwt.sign(
-          { _id: newVet._id },
-          process.env.TOKEN_SECRET_USER
-        );
+      
+      // generating jwt token
+      const token = jwt.sign(
+        { _id: newVet._id },
+        process.env.TOKEN_SECRET_USER
+      );
 
-        // sending token in headers
-        res.setHeader("Authorization",`Bearer ${token}`)
+      // sending token in headers
+      res.setHeader("Authorization", `Bearer ${token}`);
 
-        // Return success response if registration is successful
-        res.status(201).json({ message: "Veterinarian registered successfully" });
-      } catch (error) {
+      // Return success response if registration is successful
+      res.status(201).json({ message: "Veterinarian registered successfully" });
+    } catch (error) {
         // Handle registration error
         console.error("Error registering vet:", error.message);
         res.status(500).json({ message: error.message });

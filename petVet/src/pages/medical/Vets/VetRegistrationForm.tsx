@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import backgroundImage from "../../../assets/vet/pets2.jpg";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface FormValues {
   name: string;
@@ -106,9 +107,17 @@ const handleSubmit = async (
 
 const VetRegistrationForm = () => {
 
+  const navigate=useNavigate();
+
+  const handleLogin=()=>{
+    navigate("/login")
+  }
   return (
     <div className="flex w-screen height-screen">
-      <div className="w-1/2 p-8 bg-orange-200">
+      <div className="w-1/2 p-8 bg-orange-200 relative">
+        <div className="absolute right-10 underline" >
+          <button type="button" onClick={handleLogin} >Login Instead</button>
+        </div>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

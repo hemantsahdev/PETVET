@@ -9,7 +9,7 @@ import {
 
 const Login = () => {
   return (
-    <main className='h-screen w-full flex justify-center items-center '>
+    <main className="h-screen w-full flex justify-center items-center ">
       <Card placeholder={null} color="transparent" shadow={false}>
         <Typography placeholder={null} variant="h4" color="blue-gray">
           Login
@@ -33,6 +33,7 @@ const Login = () => {
               Username / Email
             </Typography>
             <Input
+              crossOrigin={null}
               size="lg"
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -40,8 +41,7 @@ const Login = () => {
                 className: "before:content-none after:content-none",
               }}
             />
-           
-            
+
             <Typography
               placeholder={null}
               variant="h6"
@@ -58,6 +58,7 @@ const Login = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              crossOrigin={null}
             />
           </div>
           <Checkbox
@@ -78,10 +79,11 @@ const Login = () => {
               </Typography>
             }
             containerProps={{ className: "-ml-2.5" }}
+            crossOrigin={null}
           />
           <Button placeholder={null} className="mt-6" fullWidth>
             Login
-          </Button> 
+          </Button>
           <Typography
             placeholder={null}
             color="gray"
