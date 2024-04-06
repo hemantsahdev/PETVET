@@ -1,3 +1,4 @@
+// CLIENT REGISTRATION
 // This is the register page for the clients ( any other specific register page will be in its desired folder)
 
 

@@ -1,4 +1,8 @@
 const VETERINARIAN = require("../Models/user/veterinarian");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const USERS = require("../Models/user/user");
+
 
 const registerController=async(req,res)=>{
 
@@ -15,7 +19,7 @@ const registerController=async(req,res)=>{
           $or: [{ username }, { email }],
         });
 
-        if (existingUser) {
+        if (existingVet) {
           return res
             .status(409)
             .json({ message: "Username or email already exists" });
@@ -52,8 +56,8 @@ const registerController=async(req,res)=>{
         res.status(201).json({ message: "Veterinarian registered successfully" });
       } catch (error) {
         // Handle registration error
-        console.error("Error registering vet:", error);
-        res.status(500).json({ message: "Internal server error" });
+        console.error("Error registering vet:", error.message);
+        res.status(500).json({ message: error.message });
       }
 }
 

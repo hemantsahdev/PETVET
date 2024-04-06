@@ -6,7 +6,7 @@ const VetLayout = () => {
   return (
     <>
       <main className='flex flex-row'>
-        <Sidebar />
+        {/* <Sidebar /> */}
         <VetRouter />
       </main>
     </>
