@@ -1,4 +1,3 @@
-import { Route, Routes } from "react-router-dom";
 import MainLayout from './layout/MainLayout';
 import VetLayout from "./layout/vets/VetLayout";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,9 +8,9 @@ const App = () => {
     <>
    
         
-          {/* <VetLayout/> */}
+          <VetLayout/>
 
-          <MainLayout/>
+          {/* <MainLayout/> */}
 
      
     </>

@@ -1,10 +1,12 @@
 const express=require("express");
-const { registerController } = require("../../Controllers/veterinarian");
+const { registerController ,addSlots, getSlots} = require("../../Controllers/veterinarian");
 
 const router=express.Router();
 
 router.post("/register",registerController)
 
+router.post("/addSlots",addSlots)
 
+router.get("/getSlots",getSlots)
 
 module.exports=router;

@@ -1,4 +1,17 @@
-const mongoose =require("mongoose");
+const mongoose = require("mongoose");
+
+// const availableSlotsSchema = new mongoose.Schema({
+//   date: {
+//     type: Date,
+//     required: true
+//   },
+//   slots: [
+//     {
+//       startTime: { type: Date, required: true },
+//       endTime: { type: Date, required: true }
+//     }
+//   ]
+// });
 
 const veterinarianSchema = new mongoose.Schema({
   name: {
@@ -24,7 +37,7 @@ const veterinarianSchema = new mongoose.Schema({
   },
   pincode: {
     type: String,
-    required: true,
+    // required: true,
   },
   city: String,
   state: String,
@@ -44,23 +57,27 @@ const veterinarianSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    required: function () {
-      return this.vet === true;
-    },
   },
   speciality: {
     type: String,
-    required: function () {
-      return this.vet === true;
-    },
   },
 
-//   it will store the URLs of the images stored in firebase
-  certificates:{
-    type:String
-  }
+  availableSlots: [
+    {
+      date: {
+        type: Date,
+        required: true,
+      },
+      slots: [
+        {
+          startTime: { type: Date, required: true },
+          endTime: { type: Date, required: true },
+        },
+      ],
+    },
+  ],
 });
 
-const VETERINARIAN=mongoose.model("VETERINARIAN",veterinarianSchema);
+const VETERINARIAN = mongoose.model("VETERINARIAN", veterinarianSchema);
 
-module.exports=VETERINARIAN;
+module.exports = VETERINARIAN;
