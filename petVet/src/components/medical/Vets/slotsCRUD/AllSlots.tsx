@@ -27,7 +27,7 @@ const AllSlots:React.FC<Props> = ({allSlotsArr}) => {
         <h4 className="text-lg font-bold text-black ">06:00pm </h4>
       </div> */}
 
-        <Table allSlotsArr={} />
+        <Table  />
 
 
 

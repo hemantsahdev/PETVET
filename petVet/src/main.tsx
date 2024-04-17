@@ -9,13 +9,19 @@ import App from './App.tsx'
 import './index.css'
 import { ThemeProvider } from "@material-tailwind/react";
 import { BrowserRouter } from 'react-router-dom';
+import {
+  RecoilRoot,
+  
+} from "recoil";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <RecoilRoot>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </RecoilRoot>
     </BrowserRouter>
   </React.StrictMode>
 );

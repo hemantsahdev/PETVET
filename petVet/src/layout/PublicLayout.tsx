@@ -3,7 +3,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import MainRouter from "../routes/MainRouter";
 
-const MainLayout = () => {
+const PublicLayout = () => {
   return (
     <>
       <Header />
@@ -15,4 +15,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default PublicLayout;

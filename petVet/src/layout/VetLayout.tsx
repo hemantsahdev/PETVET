@@ -1,7 +1,7 @@
 import React from 'react'
-import VetRouter from '../../routes/VetRouter'
-import Sidebar from '../../components/medical/Vets/Sidebar/Sidebar'
-import Header from '../../components/medical/Vets/Header/Header';
+import VetRouter from '../routes/VetRouter'
+import Sidebar from '../components/medical/Vets/Sidebar/Sidebar'
+import Header from '../components/medical/Vets/Header/Header';
 
 const VetLayout = () => {
   return (

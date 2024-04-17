@@ -1,65 +1,39 @@
-import MainLayout from './layout/MainLayout';
-import VetLayout from "./layout/vets/VetLayout";
+import VetLayout from "./layout/VetLayout";
 import "react-toastify/dist/ReactToastify.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { useEffect } from "react";
+// import { BASE_URL } from "./Config";
+// import axios from "axios";
+import PublicLayout from "./layout/PublicLayout";
+import { useRecoilValue } from "recoil";
+import { userRole } from "./state/Atoms/userRole";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "./Config/Config";
 
 const App = () => {
-  return (
-    <>
-   
+  const user = useRecoilValue(userRole);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(user);
+    if(localStorage.getItem('Authorization')){
+
+      try{
+        const {data}=await axios.post(`${BASE_URL}/user/userRole`);
         
-          <VetLayout/>
 
-          {/* <MainLayout/> */}
+      }
 
-     
-    </>
-  );
-}
+      console.log(user)
+        navigate(user === "veterinarian" ? "/vet/dashboard" : "/home");
+    }
+   
+  }, [user, navigate]);
 
-export default App
+  return <>{user === "veterinarian" ? <VetLayout /> : <PublicLayout />}</>;
+};
 
 
-// const App = () => {
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-//   const [userRole, setUserRole] = useState("");
+export default App;
 
-//   useEffect(() => {
-//     // Check user authentication status upon component mount
-//     checkAuthenticationStatus();
-//   }, []);
-
-//   const checkAuthenticationStatus = async () => {
-//     // Check authentication status by sending a request to the backend server
-//     try {
-//       const response = await fetch("/api/auth/check", {
-//         method: "GET",
-//         credentials: "include", // Include cookies for authentication
-//       });
-//       if (response.ok) {
-//         const userData = await response.json();
-//         setIsAuthenticated(true);
-//         setUserRole(userData.role);
-//       } else {
-//         setIsAuthenticated(false);
-//         setUserRole("");
-//       }
-//     } catch (error) {
-//       console.error("Error checking authentication status:", error);
-//     }
-//   };
-
-//   return (
-//     <Router>
-//       {isAuthenticated ? (
-//         userRole === "vet" ? (
-//           <VetRouter />
-//         ) : (
-//           <UserRouter />
-//         )
-//       ) : (
-//         <PublicRouter />
-//       )}
-//     </Router>
-//   );
-// };

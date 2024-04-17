@@ -26,7 +26,7 @@ app.use("/veterinarian",veterinarian)
 
 // common public
 const common=require("./src/api/Routes/common/route")
-app.use("user",common)
+app.use("/user",common)
 
 
 

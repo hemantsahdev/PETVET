@@ -45,6 +45,7 @@ const registerController=async(req,res)=>{
         username,
         email,
         password: hashedPassword,
+        userRole:"veterinarian"
       });
 
       // Save the new user to the database
@@ -62,7 +63,7 @@ const registerController=async(req,res)=>{
         .status(201)
         .json({
           message: "Veterinarian registered successfully",
-          vetToken: token,
+          
         });
     } catch (error) {
         // Handle registration error
