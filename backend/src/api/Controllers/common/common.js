@@ -1,6 +1,7 @@
 const USERS = require("../../Models/user/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const APPOINTMENT = require("../../Models/appointment/appointment");
 
 const loginController = async (req, res) => {
   // jis bhi way se user login krega..vo field hum isse assign kr denge . usernameOrEmail is just like another parameter . no actual operater in the name
@@ -71,5 +72,31 @@ const userRoleController = async (req, res) => {
   }
 
 };
+
+const addAppointment=async(req,res)=>{
+  const {petOwnerId,veterinarianId,appointmentDate,reason,status,payment}=req.body;
+
+  try{
+
+      const newAppointment=new APPOINTMENT({
+        petOwnerId,veterinarianId,appointmentDate,reason,status,payment
+      })
+
+      await newAppointment.save();
+      res.status(200).json({
+        message:"Appointment successfull"
+      })
+
+  }
+  catch(err){
+    res.status(500).json({
+      message:"error registering appointment",
+      error:err.message
+    })
+  }
+
+}
+
+
 
 module.exports = { loginController, userRoleController };

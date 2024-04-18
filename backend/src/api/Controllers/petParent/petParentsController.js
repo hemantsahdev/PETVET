@@ -1,7 +1,7 @@
-const PETPARENT = require("../Models/user/petParent");
+const PETPARENT = require("../../Models/user/petParent");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const USERS = require("../Models/user/user");
+const USERS = require("../../Models/user/user");
 
 const registerController = async (req, res) => {
   const { name, email, username, password, city, state } = req.body;
@@ -71,5 +71,6 @@ const registerController = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 module.exports = { registerController };

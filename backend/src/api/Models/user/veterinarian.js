@@ -37,10 +37,16 @@ const veterinarianSchema = new mongoose.Schema({
   },
   pincode: {
     type: String,
-    // required: true,
+    
   },
-  city: String,
-  state: String,
+  city: {
+    type: String,
+    
+  },
+  state: {
+    type: String,
+    
+  },
   date: {
     type: Date,
     default: Date.now,
@@ -76,6 +82,9 @@ const veterinarianSchema = new mongoose.Schema({
       ],
     },
   ],
+
+
+
 });
 
 const VETERINARIAN = mongoose.model("VETERINARIAN", veterinarianSchema);

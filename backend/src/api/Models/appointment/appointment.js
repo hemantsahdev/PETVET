@@ -20,15 +20,25 @@ const appointmentSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    videoCall:{
+      type:Boolean,
+      required:true,
+      default: false,
+    },
     reason: {
       type: String,
       required: true,
     },
     status: {
       type: String,
-      enum: ["Pending", "Confirmed", "Cancelled"],
+      enum: ["Pending", "Confirmed", "Cancelled","Completed"],
       default: "Pending",
     },
+    payment:{
+      type:String,
+      enum:["Successfull","Partial","Pending","offline"],
+      default:"Pending"
+    }
   },
   { timestamps: true }
 );
