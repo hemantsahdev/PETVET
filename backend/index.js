@@ -16,17 +16,17 @@ mongoose.connection.on("connected",()=>{
     console.log("database se manjoori mil gyi hai buddy")
 })
 
-// pet parent public
+// routes only logged in as PET-PARENT can visit
 const petParent=require("./src/api/Routes/petParents/route")
 app.use("/petParent", petParent);
 
-// veterinarian public
+//  routes only logged in as VETS can visit
 const veterinarian=require("./src/api/Routes/vets/route")
 app.use("/veterinarian",veterinarian)
 
-// common public
-const common=require("./src/api/Routes/common/route")
-app.use("/user",common)
+// routes PUBLIC can visit
+const public=require("./src/api/Routes/Public/route")
+app.use("/user",public)
 
 
 
