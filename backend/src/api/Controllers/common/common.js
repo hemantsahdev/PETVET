@@ -34,7 +34,14 @@ const loginController = async (req, res) => {
 
     // sending the tokens in the headers
     res.setHeader("Authorization", `Bearer${token}`);
-    res.status(200).json({ message: "Logged in Successfull", token: token,userRole: user.role});
+    console.log(user.userRole);
+    res
+      .status(200)
+      .json({
+        message: "Logged in Successfull",
+        token: token,
+        userRole: user.userRole,
+      });
   } catch (err) {
     console.log(err.message, "error logging in user");
     res

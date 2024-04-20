@@ -47,7 +47,13 @@ const Login = () => {
 
       if (data) {
         localStorage.setItem("Authorization", `Bearer ${data.token}`);
-
+        console.log(data)
+        if(data.userRole==="veterinarian"){
+          navigate("/vet/dashboard");
+        }
+        else{
+          navigate("/home")
+        }
         setUserRole(() => data.userRole);
         toast.success(data.message, {
           position: "top-right",
@@ -192,9 +198,9 @@ const Login = () => {
                   Register here!
                 </button>
               </Typography>
-              <ToastContainer transition={Bounce} />
             </Form>
           </Card>
+          <ToastContainer transition={Bounce} />
         </main>
       </Formik>
     </>
