@@ -35,6 +35,9 @@ const veterinarianSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
+  profilePic:{
+    type:String
+  },
   pincode: {
     type: String,
     
@@ -67,7 +70,9 @@ const veterinarianSchema = new mongoose.Schema({
   speciality: {
     type: String,
   },
-
+  pricePerSlot:{
+    type:Number,
+  },
   availableSlots: [
     {
       date: {
