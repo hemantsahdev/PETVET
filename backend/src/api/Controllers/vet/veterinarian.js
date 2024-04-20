@@ -52,17 +52,17 @@ const registerController=async(req,res)=>{
       await newUser.save();
 
       // generating jwt token
-      const token = jwt.sign({ _id: newVet._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ username: newVet.username }, process.env.JWT_SECRET);
 
       // sending token in headers
-      res.setHeader("Authorization", `Bearer ${token}`);
+      // res.setHeader("Authorization", `Bearer ${token}`);
 
       // Return success response if registration is successful
       res
         .status(201)
         .json({
           message: "Veterinarian registered successfully",
-          
+          token
         });
     } catch (error) {
         // Handle registration error

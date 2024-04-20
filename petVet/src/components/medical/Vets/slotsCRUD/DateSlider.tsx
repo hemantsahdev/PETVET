@@ -16,21 +16,43 @@ interface Day {
 interface Props {
   allSlotsArr: Day[];
 }
+const staticSlotsArr = [
+  {
+    _id: "1",
+    date: "2024-04-20T09:00:00Z",
+  },
+  {
+    _id: "2",
+    date: "2024-04-21T10:30:00Z",
+  },
+  {
+    _id: "3",
+    date: "2024-04-22T11:15:00Z",
+  },
+  {
+    _id: "4",
+    date: "2024-04-23T14:00:00Z",
+  },
+  {
+    _id: "5",
+    date: "2024-04-24T16:45:00Z",
+  },
+];
 
-const DateSlider: React.FC<Props> = ({ allSlotsArr }) => {
+const DateSlider: React.FC<Props> = () => {
   const [allDatesArr, setAllDatesArr] = useState<string[]>([]);
 
   useEffect(() => {
-    const dates = allSlotsArr.map((day) => convertUtcToIst(day.date));
-    console.log(allDatesArr)
+    const dates = staticSlotsArr.map((day) => convertUtcToIst(day.date));
+    console.log(allDatesArr);
     setAllDatesArr(dates);
-  }, [allSlotsArr]);
+  }, []);
 
   return (
     <>
       {allDatesArr.length > 0 && (
         <div className="w-5/6 bg-creamContrast h-24 flex flex-row items-center gap-4 overflow-x-auto overflow-y-hidden">
-          {allSlotsArr.map((day, index) => (
+          {staticSlotsArr.map((day, index) => (
             <div
               key={day._id}
               className="w-24 bg-primaryBlue cursor-pointer h-20 flex flex-row items-center justify-center rounded-xl gap-1 px-2"

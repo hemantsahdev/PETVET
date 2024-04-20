@@ -25,6 +25,7 @@ const GetSlots = () => {
   }
 
 
+  // fetching all slots
   useEffect(() => {
     
     const getSlotsData =async () =>{

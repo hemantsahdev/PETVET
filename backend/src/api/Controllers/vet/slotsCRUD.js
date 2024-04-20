@@ -10,7 +10,7 @@ const addSlots = async (req, res) => {
     const { selectedDates, durationStart, durationEnd, slotDuration, vetJWT } =
       req.body;
     const decodedToken = jwt.verify(vetJWT, process.env.JWT_SECRET);
-    const vetId = decodedToken._id;
+    const vetUserName = decodedToken.username;
     const slotDurationMillis =
       slotDuration.hours * 60 * 60 * 1000 + slotDuration.minutes * 60 * 1000;
     const slots = calculateSlots(
@@ -18,8 +18,9 @@ const addSlots = async (req, res) => {
       durationEnd,
       slotDurationMillis
     );
-
-    const vet = await VETERINARIAN.findById(vetId);
+   
+    const vet = await VETERINARIAN.findOne({username:vetUserName});
+    console.log(vet)
     if (!vet) {
       return res.status(404).json({ message: "Veterinarian not found" });
     }
@@ -64,12 +65,12 @@ const getSlots = async (req, res) => {
     // Verify the JWT token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (!decodedToken._id) {
+    if (!decodedToken.username) {
       throw new Error("Invalid token: _id not found");
     }
 
-    const vetId = decodedToken._id;
-    const vet = await VETERINARIAN.findById(vetId);
+    const vetUsername = decodedToken.username;
+    const vet = await VETERINARIAN.findById(vetUsername);
 
     if (!vet) {
       return res.status(404).json({ message: "Veterinarian not found" });
@@ -98,10 +99,10 @@ const updateSlots =async(req,res) => {
   const decodedToken = jwt.verify(vetJWT, process.env.JWT_SECRET);
 
   // Extract veterinarian ID from the decoded token
-  const vetId = decodedToken._id;
+  const vetUsername = decodedToken.username;
 
   // Find the veterinarian by ID
-  const vet = await VETERINARIAN.findById(vetId);
+  const vet = await VETERINARIAN.findById(vetUsername);
 
   // If veterinarian is not found, return an error response
   if (!vet) {
@@ -136,10 +137,10 @@ const deleteSlot=async(req,res)=>{
   const decodedToken = jwt.verify(vetJWT, process.env.JWT_SECRET);
   
   // Extract veterinarian ID from the decoded token
-  const vetId = decodedToken._id;
+  const vetUsername = decodedToken.username;
   
   // Find the veterinarian by ID
-  const vet = await VETERINARIAN.findById(vetId);
+  const vet = await VETERINARIAN.findById(vetUsername);
   
   // If veterinarian is not found, return an error response
   if (!vet) {

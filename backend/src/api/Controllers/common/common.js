@@ -33,7 +33,7 @@ const loginController = async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 
     // sending the tokens in the headers
-    res.setHeader("Authorization", `Bearer${token}`);
+    // res.setHeader("Authorization", `Bearer${token}`);
     console.log(user.userRole);
     res
       .status(200)
@@ -80,29 +80,6 @@ const userRoleController = async (req, res) => {
 
 };
 
-const addAppointment=async(req,res)=>{
-  const {petOwnerId,veterinarianId,appointmentDate,reason,status,payment}=req.body;
-
-  try{
-
-      const newAppointment=new APPOINTMENT({
-        petOwnerId,veterinarianId,appointmentDate,reason,status,payment
-      })
-
-      await newAppointment.save();
-      res.status(200).json({
-        message:"Appointment successfull"
-      })
-
-  }
-  catch(err){
-    res.status(500).json({
-      message:"error registering appointment",
-      error:err.message
-    })
-  }
-
-}
 
 
 

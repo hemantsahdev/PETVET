@@ -14,9 +14,17 @@ const App = () => {
   // useEffect(() => {
   //   const fetchUserRole = async () => {
   //     try {
+  //   console.log("first useEffect called");
+
   //       if (localStorage.getItem("Authorization")) {
   //         const { data } = await axios.post(`${BASE_URL}/user/userRole`);
   //         setUser(data.userRole);
+  //         if (user === "veterinarian") {
+  //           navigate("/vet/dashboard");
+  //         }
+  //         else{
+  //           navigate("/home");
+  //         }
   //       }
   //     } catch (error) {
   //       console.error("Error fetching user role:", error);
@@ -27,15 +35,12 @@ const App = () => {
   //   fetchUserRole();
   // }, [setUser]);
 
-  // useEffect(() => {
-  //   if (user === "veterinarian") {
-  //     navigate("/vet/dashboard");
-  //   }
-  // }, [user, navigate]);
+
 
   // return <>{user === "veterinarian" ? <VetLayout /> : <PublicLayout />}</>;
 return(
   <VetLayout />
+  // <PublicLayout />
 )
 
 };

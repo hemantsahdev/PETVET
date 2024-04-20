@@ -67,9 +67,9 @@ const Login = () => {
         });
         resetForm();
       }
-    } catch (err: any) {
-      console.error(err);
-      toast.error(err.response.data.message, {
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.response?.data.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
