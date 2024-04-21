@@ -9,8 +9,12 @@ const addSlots = async (req, res) => {
   try {
     const { selectedDates, durationStart, durationEnd, slotDuration, vetJWT } =
       req.body;
+
+      console.log(vetJWT)
     const decodedToken = jwt.verify(vetJWT, process.env.JWT_SECRET);
+    console.log(decodedToken)
     const vetUserName = decodedToken.username;
+    console.log(vetUserName)
     const slotDurationMillis =
       slotDuration.hours * 60 * 60 * 1000 + slotDuration.minutes * 60 * 1000;
     const slots = calculateSlots(

@@ -5,8 +5,11 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { Dayjs } from "dayjs";
 import axios from "axios";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
-import { Bounce, toast, ToastContainer } from "react-toastify";
 import { BASE_URL } from "../../../../Config/Config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
+import { toast, Bounce, ToastContainer } from "react-toastify";
 
 interface SlotDuration {
   hours: number;
@@ -62,6 +65,7 @@ const AddSlots = () => {
       const token = localStorage.getItem("Authorization");
       if (token) {
         const authToken = token.split(" ");
+        console.log(authToken);
         const payload = {
           selectedDates,
           durationStart,
@@ -69,45 +73,48 @@ const AddSlots = () => {
           slotDuration,
           vetJWT: authToken[1],
         };
+
+        console.log(payload);
+
         const url = `${BASE_URL}/veterinarian/addSlots`;
         const { data } = await axios.post(url, payload);
         toast.success(data.message, {
-          position: "top-right",
+          position: "bottom-right",
           autoClose: 5000,
-          hideProgressBar: true,
+          hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "dark",
+          transition: Bounce,
         });
+
+        console.log(data.message)
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "An error occurred", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 5000,
-        hideProgressBar: true,
+        hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "dark",
+        transition: Bounce,
       });
+      console.log(error?.response?.data?.message )
     }
   };
 
   return (
-    <main className="h-screen w-full p-16 flex flex-col">
-      <header className="h-1/6">
-        <div className="text-7xl font-bold text-primaryBlue">
-          <h2>Add Slots</h2>
-        </div>
-      </header>
-
-      <section className="h-5/6 flex flex-row w-full gap-16">
-        <div className="w-1/2 h-full flex flex-col justify-between items-center">
-          <div className="flex flex-row items-start justify-center h-full w-full">
-            <h3 className="text-2xl font-semibold text-primaryBlue">
+    <main className=" w-full h-full px-20 flex flex-col border border-black">
+      <section className="flex flex-row w-full h-full gap-16">
+        {/* left containg date and time  */}
+        <div className="w-1/2 h-full  flex flex-col justify-center items-center ">
+          <div className="flex flex-row items-start justify-start h-1/2 w-full">
+            <h3 className="text-4xl font-bold text-primaryBlue">
               Select Dates:
             </h3>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -123,38 +130,10 @@ const AddSlots = () => {
             </LocalizationProvider>
           </div>
 
-          {selectedDates.length > 0 && (
-            <div className="flex flex-row items-start justify-center w-full">
-              <h3 className="text-2xl font-bold text-primaryBlue w-1/3">
-                All Selected Dates:
-              </h3>
-              <div className="overflow-y-auto h-44 w-2/3">
-                <ul>
-                  {selectedDates.map((date, index) => (
-                    <li
-                      className="flex flex-row justify-between items-center text-xl font-semibold my-1.5"
-                      key={index}
-                    >
-                      {date.format("DD/MM/YY")}
-                      <button
-                        type="button"
-                        className="rounded-xl flex flex-row items-center justify-center text-lg font-medium px-0.5 border border-red-500 bg-red-200 font-semibold"
-                        onClick={() => removeDate(index)}
-                      >
-                        Remove
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col h-full justify-evenly items-start">
-          <div className="flex flex-row justify-start items-center gap-32">
+          {/* timings options */}
+          <div className="h-1/2 flex flex-col justify-center items-center gap-12">
             <div className="flex flex-row items-center gap-4">
-              <h2 className="text-2xl text-primaryBlue font-semibold">
+              <h2 className="text-2xl text-primaryBlue font-bold">
                 Start Time:
               </h2>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -166,9 +145,7 @@ const AddSlots = () => {
             </div>
 
             <div className="flex flex-row items-center gap-4">
-              <h2 className="text-2xl text-primaryBlue font-semibold">
-                End Time:
-              </h2>
+              <h2 className="text-2xl text-primaryBlue font-bold">End Time:</h2>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <TimePicker
                   value={durationEnd}
@@ -177,12 +154,21 @@ const AddSlots = () => {
               </LocalizationProvider>
             </div>
           </div>
+        </div>
 
-          <div className="flex flex-row items-center gap-4">
-            <h2 className="text-2xl text-primaryBlue font-semibold">
-              Break the given duration in slots of:
-            </h2>
-            <div className="flex flex-row">
+        {/* right containing list and  slot division */}
+        <div className="w-1/2 flex flex-col h-full justify-evenly items-start ">
+          {/* slots divison */}
+          <div className="w-full h-1/3 flex flex-row items-center justify-center gap-4">
+            {/* heading for input fields */}
+            <div className="w-1/2 h-full flex flex-row justify-center items-center">
+              <h2 className="text-2xl text-primaryBlue font-semibold">
+                Break the given duration in slots of:
+              </h2>
+            </div>
+
+            {/* input fields */}
+            <div className="flex flex-row w-1/2 h-full flex flex-row justify-center items-center">
               <div className="flex flex-row items-center justify-center gap-2">
                 <select
                   value={slotDuration.hours}
@@ -223,18 +209,62 @@ const AddSlots = () => {
             </div>
           </div>
 
-          <div className="absolute bottom-16 right-32">
+          <div className="w-full h-1/3 flex flex-row items-start justify-center ">
+            {selectedDates.length > 0 && (
+              <div className="flex flex-row items-start justify-center w-full h-full border border-4 border-black rounded-2xl px-4 pt-4 shadow ">
+                <div className="w-1/2 flex flex-row items-start justify-start h-full ">
+                  <h3 className="text-2xl font-bold text-primaryBlue">
+                    All Selected Dates:
+                  </h3>
+                </div>
+
+                <div className="overflow-y-auto h-full w-1/2">
+                  <ul>
+                    {selectedDates.map((date, index) => (
+                      <li
+                        className="flex flex-row justify-center gap-32 items-center text-xl font-semibold my-1.5"
+                        key={index}
+                      >
+                        {date.format("DD/MM/YY")}
+                        <button
+                          type="button"
+                          className=" flex flex-row items-center justify-center  "
+                          onClick={() => removeDate(index)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="w-full h-1/3 flex flex-row justify-center items-center ">
             <button
               type="submit"
-              className="bg-creamContrast rounded-lg text-2xl font-bold p-2"
+              className="w-40 h-16 bg-white rounded-lg text-2xl font-bold  border border-primaryBlue border-4 hover:bg-primaryBlue hover:text-creamContrast "
               onClick={handleAddSlots}
             >
               Add Slots
             </button>
-            <ToastContainer transition={Bounce} />
           </div>
         </div>
       </section>
+      {/* <ToastContainer
+        transition={Bounce}
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      /> */}
     </main>
   );
 };

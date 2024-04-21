@@ -1,12 +1,10 @@
-import React, {  useRef, useState } from 'react'
-import DateSlider from '../../../../components/medical/Vets/slotsCRUD/DateSlider';
-import AddSlots from './AddSlots';
-import AllSlots from '../../../../components/medical/Vets/slotsCRUD/AllSlots';
-
+import React, { useRef, useState } from "react";
+import DateSlider from "../../../../components/medical/Vets/slotsCRUD/DateSlider";
+import AddSlots from "./AddSlots";
+import AllSlots from "../../../../components/medical/Vets/slotsCRUD/AllSlots";
 
 const ManageSlots = () => {
-
-  const[toggleSlots, setToggleSlots] = useState([1, 0, 0]);
+  const [toggleSlots, setToggleSlots] = useState([1, 0, 0]);
 
   const allSlotsArr = useRef([]);
 
@@ -18,12 +16,12 @@ const ManageSlots = () => {
     newToggleSlotsArr[index] = 1;
 
     setToggleSlots(newToggleSlotsArr);
-    console.log(toggleSlots)
+    console.log(toggleSlots);
   };
   return (
-    <main className="w-full">
+    <main className="w-full h-full flex flex-col gap-20">
       {/* navbar to toggle */}
-      <div className="flex flex-row justify-center w-full h-10  ">
+      <div className="flex flex-row justify-center w-full h-12 ">
         <div className="bg-creamContrast flex flex-row justify-center w-1/2 rounded-br-xl rounded-bl-xl">
           <div
             className={`w-1/3 h-full flex flex-row justify-center items-center ${
@@ -81,11 +79,13 @@ const ManageSlots = () => {
           <DateSlider allSlotsArr={allSlotsArr.current} />
         </div>
       </div> */}
-      {toggleSlots[0] === 1 && <AllSlots />}
+      <section className="h-4/5 w-full">
+        {toggleSlots[0] === 1 && <AllSlots />}
 
-      {toggleSlots[1] === 1 && <AddSlots />}
+        {toggleSlots[1] === 1 && <AddSlots />}
+      </section>
     </main>
   );
-}
+};
 
 export default ManageSlots;

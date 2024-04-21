@@ -1,5 +1,5 @@
 import React from "react";
-import vetProfilePic from "../../../assets/bruno-rodrigues-279xIHymPYY-unsplash.jpg";
+import vetProfilePic from "../../../../assets/bruno-rodrigues-279xIHymPYY-unsplash.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
@@ -7,8 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MyDoughnutChart from "../../../../components/medical/Vets/Chart.js/PieChart";
 
-
-const Dashboard = () => {
+const DashboardProfile = () => {
   return (
     <main className="w-full h-full  flex flex-col ">
       <section className="w-full h-1/3 border-b-2  border-magentaHighlight ">
@@ -138,6 +137,6 @@ const Dashboard = () => {
       </section>
     </main>
   );
-}
+};
 
-export default Dashboard
+export default DashboardProfile;
