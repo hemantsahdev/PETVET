@@ -2,8 +2,12 @@ import React from 'react'
 import VetRouter from '../routes/VetRouter'
 import Sidebar from '../components/medical/Vets/Sidebar/Sidebar'
 import Header from '../components/medical/Vets/Header/Header';
+import { faChildren } from '@fortawesome/free-solid-svg-icons';
+interface PublicLayoutProps {
+  children: React.ReactNode;
+}
 
-const VetLayout = () => {
+const VetLayout: React.FC<PublicLayoutProps>  = ({children}) => {
   return (
     <>
       <main className="flex flex-row w-screen ">
@@ -18,7 +22,7 @@ const VetLayout = () => {
           <Header />
           </div>
           <div className='' style={{height:"721px"}} >
-          <VetRouter />
+          {children}
 
           </div>
         </div>

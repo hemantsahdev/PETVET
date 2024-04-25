@@ -1,11 +1,29 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { userRole } from "./state/Atoms/userRole";
 import { BASE_URL } from "./Config/Config";
 import VetLayout from "./layout/VetLayout";
 import PublicLayout from "./layout/PublicLayout";
+import Homepage from "./pages/Home/Homepage";
+import DoctorDetails from "./pages/medical/Doctors/DoctorDetails";
+import Login from "./pages/Home/Login";
+import Doctors from "./pages/medical/Doctors/Doctors";
+import RegisterHomepage from "./pages/Home/RegisterHomepage";
+import PetParentRegistration from "./pages/medical/Registration/PetParentRegistration";
+import VetRegistration from "./pages/medical/Registration/PetParentRegistration";
+import Contact from "./pages/Home/Contact";
+import Services from "./pages/Home/Services";
+import Dashboard from "./pages/medical/Vets/Dashboard";
+import ManageSlots from "./pages/medical/Vets/ManageSlots/ManageSlots";
+import AddSlots from "./pages/medical/Vets/ManageSlots/AddSlots";
+import GetSlots from "./pages/medical/Vets/ManageSlots/GetSlots";
+import DashboardProfile from "./pages/medical/Vets/Profile/dashboardProfile";
+import Appointments from "./pages/medical/Vets/Appointments/Appointments";
+import Sage from "./pages/medical/AiBot/Sage";
+import VideoCall from "./pages/medical/Videocall/VideoCall";
+import Room from "./pages/medical/Videocall/Room/Room";
 
 const App = () => {
   // const [user, setUser] = useRecoilState(userRole);
@@ -17,9 +35,10 @@ const App = () => {
   //   console.log("first useEffect called");
 
   //       if (localStorage.getItem("Authorization")) {
-  //         const { data } = await axios.post(`${BASE_URL}/user/userRole`);
+  //         const { data } = await axios.post(`${BASE_URL}/user/userRole`,{jwtToken:localStorage.getItem("Authorization")});
   //         setUser(data.userRole);
-  //         if (user === "veterinarian") {
+          
+  //         if (data.user === "veterinarian") {
   //           navigate("/vet/dashboard");
   //         }
   //         else{
@@ -39,8 +58,68 @@ const App = () => {
 
   // return <>{user === "veterinarian" ? <VetLayout /> : <PublicLayout />}</>;
 return(
-  <VetLayout />
-  // <PublicLayout />
+  <>
+  <Routes>
+      <Route
+        path="/home"
+        element={<PublicLayout><Homepage /></PublicLayout>}
+      />
+      <Route path="/doctors" element={<PublicLayout> <Doctors /> </PublicLayout>} />
+      <Route path="/doctors/:id" element={ <PublicLayout>  <DoctorDetails /> </PublicLayout>} />
+
+      <Route path="/login" element={ <PublicLayout> <Login /> </PublicLayout>} />
+      <Route path="/registration" element={ <PublicLayout> <RegisterHomepage />  </PublicLayout> } />
+      <Route
+        path="/registration/pet-parent"
+        element={<PublicLayout> <PetParentRegistration /> </PublicLayout> }
+      />
+      <Route path="/registration/veterinarian" element={<PublicLayout> <VetRegistration /> </PublicLayout> } />
+
+      <Route path="/contact" element={ <PublicLayout>  <Contact /> </PublicLayout>} />
+      <Route path="/services" element={<PublicLayout> <Services /> </PublicLayout> } />
+
+      <Route
+        path="/vet/dashboard"
+        element={<VetLayout><Dashboard /></VetLayout>}
+      />
+      <Route
+        path="/vet/manageSlots"
+        element={<VetLayout><ManageSlots /></VetLayout>}
+      />
+      <Route
+        path="/vet/manageSlots/add-slots"
+        element={<VetLayout><AddSlots /></VetLayout>}
+      />
+      <Route
+        path="/vet/manageSlots/get-slots"
+        element={<VetLayout><GetSlots /></VetLayout>}
+      />
+      <Route
+        path="/vet/profile"
+        element={<VetLayout><DashboardProfile /></VetLayout>}
+      />
+      <Route
+        path="/vet/appointments"
+        element={<VetLayout><Appointments /></VetLayout>}
+      />
+      <Route
+        path="/vet/sage"
+        element={<VetLayout><Sage /></VetLayout>}
+      />
+      <Route
+        path="/vet/video-call"
+        element={<VetLayout><VideoCall /></VetLayout>}
+      />
+      <Route
+        path="/vet/room/:roomId"
+        element={<VetLayout><Room /></VetLayout>}
+      />
+      <Route path="/" element={ <PublicLayout>  <Homepage /> </PublicLayout>} />
+
+    </Routes>
+
+  </>
+  
 )
 
 };

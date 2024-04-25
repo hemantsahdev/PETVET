@@ -15,7 +15,7 @@ const VetRouter = () => {
     <Routes>
       <Route path="/vet/dashboard" element={<Dashboard />} />
 
-      <Route path="/" element={<Dashboard />} />
+      {/* <Route path="/" element={<Dashboard />} /> */}
 
       <Route path="/vet/manageSlots" element={<ManageSlots/>} />
       <Route path="/vet/manageSlots/add-slots" element={<AddSlots/>} />

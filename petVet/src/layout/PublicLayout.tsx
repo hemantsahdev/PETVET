@@ -1,14 +1,18 @@
-import React from "react";
+import React, { Children } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import MainRouter from "../routes/MainRouter";
 
-const PublicLayout = () => {
+interface PublicLayoutProps {
+  children: React.ReactNode;
+}
+
+
+const PublicLayout: React.FC<PublicLayoutProps> = ({children}) => {
   return (
     <>
       <Header />
       <main>
-        <MainRouter />
+       {children}
       </main>
       <Footer />
     </>

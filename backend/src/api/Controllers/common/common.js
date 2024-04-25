@@ -2,6 +2,7 @@ const USERS = require("../../Models/user/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const APPOINTMENT = require("../../Models/appointment/appointment");
+const { extractJwtToken } = require("../../Helpers/CommonHelper");
 
 const loginController = async (req, res) => {
   // jis bhi way se user login krega..vo field hum isse assign kr denge . usernameOrEmail is just like another parameter . no actual operater in the name
@@ -61,8 +62,9 @@ const userRoleController = async (req, res) => {
       message: "auth token not received",
     });
   }
+   const token= extractJwtToken(jwtToken);
   try{
-  const decodedToken = jwt.verify(jwtToken, process.env.JWT_SECRET);
+  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   const userId = decodedToken._id;
   const user = await USERS.findById(userId);
 
