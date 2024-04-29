@@ -6,6 +6,8 @@ import backgroundImage from "../../../assets/AuthImages/pets2.jpg";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import states from "../../../static/states";
+import cities from "../../../static/cities";
 
 interface FormValues {
   name: string;
@@ -45,13 +47,12 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Required")
     .min(3, "Try having a longer password"),
-  pincode:
-    Yup.number()
-    .required("Enter the Pincode"),
+  pincode: Yup.number().required("Enter the Pincode"),
   city: Yup.string().required("Required"),
   state: Yup.string().required("Required"),
-  mobile: Yup.number()
-  .required("Mobile number is must to register as a veterianrian"),
+  mobile: Yup.number().required(
+    "Mobile number is must to register as a veterianrian"
+  ),
   gender: Yup.string().required("Please select your gender"),
   speciality: Yup.string().required("Please mention your specialities"),
 });
@@ -110,10 +111,10 @@ const VetRegistration = () => {
     navigate("/login");
   };
   return (
-    <div className="flex w-screen h-screen">
+    <div className="flex w-full flex ">
       <div className="w-1/2 p-8 bg-orange-200 relative">
         <div className="absolute right-10 underline">
-          <button type="button" onClick={handleLogin}>
+          <button type="button" onClick={handleLogin} className="border border-yellow-800 bg-orange-800 text-xl text-white font-bold px-2 py-0.5 rounded-3xl border-4" >
             Login Instead
           </button>
         </div>
@@ -233,31 +234,6 @@ const VetRegistration = () => {
                 />
               </div>
 
-              {/* City Name */}
-              <div className="mb-4">
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  City
-                </label>
-                <Field
-                  as="select"
-                  id="city"
-                  name="city"
-                  className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="ludhiana">Ludhiana </option>
-                  <option value="Amritsar">Amritsar </option>
-                  <option value="Delhi">Delhi </option>
-                </Field>
-                <ErrorMessage
-                  name="city"
-                  component="div"
-                  className="text-red-500 text-xs mt-1"
-                />
-              </div>
-
               {/* State Name */}
               <div className="mb-4">
                 <label
@@ -272,12 +248,47 @@ const VetRegistration = () => {
                   name="state"
                   className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="ludhiana">Ludhiana </option>
-                  <option value="Amritsar">Amritsar </option>
-                  <option value="Delhi">Delhi </option>
+                   <option value="" disabled hidden  >
+                    Select State
+                  </option>
+                  {states.map((state, index) => (
+                    <option key={index} value={state}>
+                      {state}
+                    </option>
+                  ))}
                 </Field>
                 <ErrorMessage
                   name="state"
+                  component="div"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
+
+              {/* City Name */}
+              <div className="mb-4">
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  City
+                </label>
+                <Field
+                  as="select"
+                  id="city"
+                  name="city"
+                  className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                   <option value="" disabled hidden  >
+                    Select City
+                  </option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="city"
                   component="div"
                   className="text-red-500 text-xs mt-1"
                 />
@@ -318,9 +329,12 @@ const VetRegistration = () => {
                   name="gender"
                   className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="ludhiana">Male </option>
-                  <option value="Amritsar">Female </option>
-                  <option value="Delhi">Other </option>
+                  <option value="" disabled hidden  >
+                    Select Gender
+                  </option>
+                  <option value="male">Male </option>
+                  <option value="female">Female </option>
+                  <option value="other">Other </option>
                 </Field>
                 <ErrorMessage
                   name="gender"
@@ -339,11 +353,31 @@ const VetRegistration = () => {
                 </label>
 
                 <Field
-                  as="textarea" // Use "textarea" instead of "input"
+                  as="select"
                   id="speciality"
                   name="speciality"
                   className="mt-1 p-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                >
+                  <option value="" disabled hidden className="text-red-500" >
+                    Please select one from the below
+                  </option>
+                  <option value="small-animal-medicine" className="font-semibold ">
+                    Small Animal Medicine
+                  </option>
+                  <option value="large-animal-medicine" className="font-semibold ">
+                    Large Animal Medicine
+                  </option>
+                  <option value="behavioral-medicine" className="font-semibold " >
+                    Behavioral Medicine
+                  </option>
+                  <option value="cancer-care" className="font-semibold ">Cancer Care</option>
+                  <option value="birds-poultry-medicine" className="font-semibold ">
+                    Birds & Poultry Medicine
+                  </option>
+                  <option value="dentistry" className="font-semibold ">Dentistry</option>
+                  <option value="other" className="font-semibold ">Other</option>
+
+                </Field>
                 <ErrorMessage
                   name="speciality"
                   component="div"
@@ -359,7 +393,7 @@ const VetRegistration = () => {
               >
                 {isSubmitting ? "Submitting..." : "Submit"}
               </button>
-              <ToastContainer transition={Bounce} />
+              
             </Form>
           )}
         </Formik>
@@ -367,9 +401,10 @@ const VetRegistration = () => {
 
       {/* Right Half - Image */}
       <div
-        className="w-1/2 bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      ></div>
+        className="w-1/2 bg-cover bg-center "
+      >
+        <img src={backgroundImage} alt="" />
+      </div>
     </div>
   );
 };

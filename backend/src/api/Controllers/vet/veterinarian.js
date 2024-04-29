@@ -2,6 +2,7 @@ const VETERINARIAN = require("../../Models/user/veterinarian");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const USERS = require("../../Models/user/user");
+const mongoose = require('mongoose');
 
 const registerController = async (req, res) => {
   const {
@@ -122,7 +123,58 @@ const handlingPricePerSlot = async (req, res) => {
 };
 
 
-module.exports = { registerController, getAllVeterinarians,handlingPricePerSlot };
+const getVetDetails = async (req, res) => {
+  const { jwtToken } = req.body;
+
+  try {
+    // Verify JWT token to get decoded payload
+    const decodedToken = jwt.verify(jwtToken, process.env.JWT_SECRET);
+
+    // Extract username from decoded payload
+    const vetUsername = decodedToken.username;
+
+    // Find vet details based on vetUsername
+    const vet = await VETERINARIAN.findOne({ username: vetUsername });
+
+    if (!vet) {
+      return res.status(404).json({ message: "Vet not found" });
+    }
+
+    // If vet found, send vet details in the response
+    res.status(200).json({ vetDetails: vet });
+  } catch (error) {
+    console.error("Error fetching vet details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const getVetDetailsById = async (req, res) => {
+  const { id } = req.body;
+console.log(id)
+  try {
+    // Validate ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+
+    // Find vet details based on id
+    const vet = await VETERINARIAN.findOne({ _id: id });
+
+    if (!vet) {
+      return res.status(404).json({ message: "Vet not found" });
+    }
+
+    // If vet found, send vet details in the response
+    res.status(200).json({ vetDetails: vet });
+  } catch (error) {
+    console.error("Error fetching vet details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
+module.exports = { registerController, getAllVeterinarians,handlingPricePerSlot,getVetDetails ,getVetDetailsById};
 
 
 // const registerController = async (req, res) => {

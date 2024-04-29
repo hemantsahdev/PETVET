@@ -10,7 +10,7 @@ import { FcVideoCall } from "react-icons/fc";
 import faq from "../../assets/faqCat.jpg";
 import About from "./About";
 import ServicesList from "../../components/medical/Vets/DealsIn/ServicesList";
-import DoctorList from "../../components/medical/Vets/Doctors/DoctorList";
+import DoctorList from "../../components/medical/Vets/Vets/VetsList";
 
 const Homepage = () => {
   return (

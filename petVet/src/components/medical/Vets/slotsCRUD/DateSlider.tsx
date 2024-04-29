@@ -16,6 +16,7 @@ interface Day {
 interface Props {
   allSlotsArr: Day[];
 }
+
 const staticSlotsArr = [
   {
     _id: "1",
@@ -39,24 +40,31 @@ const staticSlotsArr = [
   },
 ];
 
-const DateSlider: React.FC<Props> = () => {
+const DateSlider: React.FC<Props> = ({slotsArr,onDateClick }) => {
+
   const [allDatesArr, setAllDatesArr] = useState<string[]>([]);
 
   useEffect(() => {
-    const dates = staticSlotsArr.map((day) => convertUtcToIst(day.date));
-    console.log(allDatesArr);
+    const dates = slotsArr.map((day) => convertUtcToIst(day.date));
     setAllDatesArr(dates);
+    console.log(allDatesArr);
+
   }, []);
 
   return (
-    <>
+    <main className="h-full w-full  flex flex-row">
+      <div className="h-full w-1/5 flex flex-row justify-center items-center " >
+        <h2 className="text-5xl font-bold">Dates :</h2>
+      </div>
+      <div className="h-full w-4/5">
       {allDatesArr.length > 0 && (
-        <div className="w-5/6 bg-creamContrast h-24 flex flex-row items-center gap-4 overflow-x-auto overflow-y-hidden">
-          {staticSlotsArr.map((day, index) => (
+        <div className="w-full  h-full flex flex-row items-center gap-4 overflow-x-auto overflow-y-hidden  px-4">
+          {slotsArr.map((day) => (
             <div
               key={day._id}
-              className="w-24 bg-primaryBlue cursor-pointer h-20 flex flex-row items-center justify-center rounded-xl gap-1 px-2"
-            >
+              className="w-24 shadow shadow-md shadow-gray-400 hover:shadow-black bg-primaryBlue cursor-pointer h-20 flex flex-row items-center justify-center rounded-xl gap-1 px-2 zoom-in"
+              onClick={() => onDateClick(day.date)}
+            > 
               <h2 className="text-2xl font-semibold text-creamContrast ">
                 {new Date(day.date).getDate()}
               </h2>
@@ -69,7 +77,9 @@ const DateSlider: React.FC<Props> = () => {
           ))}
         </div>
       )}
-    </>
+      </div>
+     
+    </main>
   );
 };
 

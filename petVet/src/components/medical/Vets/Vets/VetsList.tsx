@@ -1,14 +1,15 @@
 import React from "react";
 import { doctors } from "../../../../assets/Data/Doctors.ts";
-import DoctorCard from "./DoctorCard.tsx";
-const DoctorList = () => {
+import DoctorCard from "./VetCard.tsx";
+
+const VetsList = () => {
   return (
     <div className="flex justify-evenly mt-12">
       {doctors.map((doctor, idx) => (
-        <DoctorCard doctor={doctor} key={idx} />
+        <DoctorCard vet={doctor} key={idx} />
       ))}
     </div>
   );
 };
 
-export default DoctorList;
+export default VetsList;

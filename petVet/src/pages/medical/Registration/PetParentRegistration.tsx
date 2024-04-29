@@ -2,7 +2,7 @@
 
 import { Formik, Field, ErrorMessage, FormikHelpers, Form } from "formik";
 import * as Yup from "yup";
-import backgroundImage from "../../../assets/AuthImages/pets2.jpg";
+import backgroundImage from "../../../assets/AuthImages/pets1.jpg";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +59,7 @@ const validationSchema = Yup.object().shape({
 
 
 
-const VetRegistration = () => {
+const PetParentRegistration = () => {
 
   const setUserRole=useSetRecoilState(userRole)
 
@@ -121,13 +121,13 @@ const handleSubmit = async (
     navigate("/login");
   };
   return (
-    <div className="flex w-screen h-auto" style={{ marginTop: "80px" }}>
+    <div className="flex w-screen h-auto" >
       <div
         className="w-1/2 p-8 bg-blue-200 relative"
         style={{ backgroundColor: "#004170" }}
       >
         <div className="absolute right-10 underline">
-          <button type="button" onClick={handleLogin}>
+        <button type="button" onClick={handleLogin} className="border border-brown-200 bg-brown-800 text-xl text-white font-bold px-2 py-0.5 rounded-3xl border-4" >
             Login Instead
           </button>
         </div>
@@ -139,7 +139,7 @@ const handleSubmit = async (
           {({ isSubmitting }) => (
             <Form className="max-w-md mx-auto bg-gray-100 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 bg-blue-300">
               <h1 className="text-3xl font-bold text-center text-gray-800 mb-8 font-pacifico text-blue-700">
-                Veterinarian Registration
+                Pet Parent Registration
               </h1>
 
               {/* Name */}
@@ -169,7 +169,7 @@ const handleSubmit = async (
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Username
+                  Username 
                 </label>
                 <Field
                   type="text"
@@ -190,7 +190,7 @@ const handleSubmit = async (
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email
+                  Email 
                 </label>
                 <Field
                   type="email"
@@ -388,4 +388,4 @@ const handleSubmit = async (
   );
 };
 
-export default VetRegistration;
+export default PetParentRegistration;

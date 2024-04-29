@@ -5,7 +5,7 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { Dayjs } from "dayjs";
 import axios from "axios";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
-import { BASE_URL } from "../../../../Config/Config";
+import { BASE_URL } from "../../../../../Config/Config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,6 +24,8 @@ const AddSlots = () => {
     minutes: 0,
   });
   const [selectedDates, setSelectedDates] = useState<Dayjs[]>([]);
+
+  const [pricePerSlot, setPricePerSlot] = useState("");
 
   const handleDateChange = (newDate: Dayjs) => {
     if (selectedDates.some((date) => date.isSame(newDate, "date"))) {
@@ -71,6 +73,7 @@ const AddSlots = () => {
           durationStart,
           durationEnd,
           slotDuration,
+          pricePerSlot,
           vetJWT: authToken[1],
         };
 
@@ -89,8 +92,14 @@ const AddSlots = () => {
           theme: "dark",
           transition: Bounce,
         });
+        // Clearing state variables after success
+        setDurationStart(null);
+        setDurationEnd(null);
+        setSlotDuration({ hours: 0, minutes: 0 });
+        setSelectedDates([]);
+        setPricePerSlot("");
 
-        console.log(data.message)
+        console.log(data.message);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "An error occurred", {
@@ -104,7 +113,7 @@ const AddSlots = () => {
         theme: "dark",
         transition: Bounce,
       });
-      console.log(error?.response?.data?.message )
+      console.log(error?.response?.data?.message);
     }
   };
 
@@ -159,7 +168,24 @@ const AddSlots = () => {
         {/* right containing list and  slot division */}
         <div className="w-1/2 flex flex-col h-full justify-evenly items-start ">
           {/* slots divison */}
-          <div className="w-full h-1/3 flex flex-row items-center justify-center gap-4">
+
+          <div className="w-full h-1/6 flex flex-row items-center justify-center gap-4">
+            <div className="w-1/2 h-full flex flex-row justify-start items-center">
+              <h1 className="text-2xl text-primaryBlue font-semibold">
+                Price Per Slot:
+              </h1>
+            </div>
+            <div className="flex flex-row w-1/2 h-full flex flex-row justify-center items-center">
+              <input
+                type="number"
+                placeholder="Rs."
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={pricePerSlot}
+                onChange={(e) => setPricePerSlot(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="w-full h-1/6 flex flex-row items-center justify-center gap-4">
             {/* heading for input fields */}
             <div className="w-1/2 h-full flex flex-row justify-center items-center">
               <h2 className="text-2xl text-primaryBlue font-semibold">
@@ -209,7 +235,7 @@ const AddSlots = () => {
             </div>
           </div>
 
-          <div className="w-full h-1/3 flex flex-row items-start justify-center ">
+          <div className="w-full h-1/2 flex flex-row items-start justify-center ">
             {selectedDates.length > 0 && (
               <div className="flex flex-row items-start justify-center w-full h-full border border-4 border-black rounded-2xl px-4 pt-4 shadow ">
                 <div className="w-1/2 flex flex-row items-start justify-start h-full ">
@@ -241,7 +267,7 @@ const AddSlots = () => {
             )}
           </div>
 
-          <div className="w-full h-1/3 flex flex-row justify-center items-center ">
+          <div className="w-full h-1/6 flex flex-row justify-center items-center ">
             <button
               type="submit"
               className="w-40 h-16 bg-white rounded-lg text-2xl font-bold  border border-primaryBlue border-4 hover:bg-primaryBlue hover:text-creamContrast "

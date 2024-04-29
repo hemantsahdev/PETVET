@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Dashboard from '../pages/medical/Vets/Dashboard';
 import ManageSlots from '../pages/medical/Vets/ManageSlots/ManageSlots';
 import GetSlots from '../pages/medical/Vets/ManageSlots/GetSlots';
-import AddSlots from '../pages/medical/Vets/ManageSlots/AddSlots';
+import AddSlots from '../pages/medical/Vets/ManageSlots/pages/AddSlots';
 import DashboardProfile from '../pages/medical/Vets/Profile/dashboardProfile';
 import Appointments from '../pages/medical/Vets/Appointments/Appointments';
 import Sage from "../pages/medical/AiBot/Sage"

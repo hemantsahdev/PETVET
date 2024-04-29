@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import DateSlider from '../../../../components/medical/Vets/slotsCRUD/DateSlider';
-import AllSlots from '../../../../components/medical/Vets/slotsCRUD/AllSlots';
-import BookedSlots from '../../../../components/medical/Vets/slotsCRUD/BookedSlots';
-import VaccantSlots from '../../../../components/medical/Vets/slotsCRUD/VaccantSlots';
+import AllSlots from './pages/AllSlots';
+import BookedSlots from './pages/BookedSlots';
+import VaccantSlots from './pages/VaccantSlots';
 import axios from 'axios';
 
 const GetSlots = () => {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const PETPARENT = require("./petParent");
 
 // const availableSlotsSchema = new mongoose.Schema({
 //   date: {
@@ -70,9 +71,12 @@ const veterinarianSchema = new mongoose.Schema({
   speciality: {
     type: String,
   },
+
+  // need to filled in addSlots section
   pricePerSlot:{
     type:Number,
   },
+
   availableSlots: [
     {
       date: {
@@ -81,14 +85,105 @@ const veterinarianSchema = new mongoose.Schema({
       },
       slots: [
         {
-          startTime: { type: Date, required: true },
-          endTime: { type: Date, required: true },
+          date: {
+            type: Date,
+            required: true,
+          },
+          startTime: {
+            type: Date,
+            required: true,
+          },
+          endTime: {
+            type: Date,
+            required: true,
+          },
         },
       ],
     },
   ],
+  
+  addedSlots:[
+    {
+      date: {
+        type: Date,
+        required: true,
+      },
+      slots: [
+        {
+          startTime: {
+            type: Date,
+            required: true,
+          },
+          endTime: {
+            type: Date,
+            required: true,
+          },
+        },
+      ],
+    }
+  ],
 
+  bookedSlots:[
+    {
+      
+      slot: {
+        date: {
+          type: Date,
+          required: true,
+        },
+        startTime: {
+          type: Date,
+          required: true,
+        },
+        endTime: {
+          type: Date,
+          required: true,
+        },
+      },
+     
+      mode: {
+        type: String,
+        enum: ['offline', 'online'],
+        
+      },
+    }
+  ],
 
+  appointments:[
+    {
+      
+      petParent: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: PETPARENT,
+        required: true,
+      },
+      
+      startTime: {
+        type: Date,
+        required: true,
+      },
+      endTime: {
+        type: Date,
+        required: true,
+      },
+      status: {
+        type: String,
+        enum: ['pending', 'inQueue', 'cancelled'],
+        default: 'pending',
+      },
+      payment: {
+        type: String,
+        enum: ['pending', 'confirmed', 'cancelled'],
+        
+      },
+      mode: {
+        type: String,
+        enum: ['offline', 'online'],
+       
+      },
+      
+    }
+  ]
 
 });
 

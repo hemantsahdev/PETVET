@@ -29,7 +29,7 @@ const loginController = async (req, res) => {
 
     // genrating the jwt and assigning to local.
     const payload = {
-      _id: user._id,
+      username: user.username,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 

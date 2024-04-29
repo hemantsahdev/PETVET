@@ -6,7 +6,7 @@ import Login from "../pages/Home/Login";
 import Contact from "../pages/Home/Contact";
 import Services from "../pages/Home/Services";
 import Doctors from "../pages/medical/Doctors/Doctors";
-import DoctorDetails from "../pages/medical/Doctors/DoctorDetails";
+import DoctorDetails from "../pages/medical/VetForClient/VetDetails";
 import Homepage from "../pages/Home/Homepage";
 import RegisterHomepage from "../pages/Home/RegisterHomepage";
 import PetParentRegistration from "../pages/medical/Registration/PetParentRegistration";

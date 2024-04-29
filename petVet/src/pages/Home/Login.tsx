@@ -49,7 +49,7 @@ const Login = () => {
         localStorage.setItem("Authorization", `Bearer ${data.token}`);
         console.log(data)
         if(data.userRole==="veterinarian"){
-          navigate("/vet/dashboard");
+          navigate(`/vet/dashboard`);
         }
         else{
           navigate("/home")

@@ -7,23 +7,24 @@ import { BASE_URL } from "./Config/Config";
 import VetLayout from "./layout/VetLayout";
 import PublicLayout from "./layout/PublicLayout";
 import Homepage from "./pages/Home/Homepage";
-import DoctorDetails from "./pages/medical/Doctors/DoctorDetails";
+import VetDetails from "./pages/medical/VetForClient/VetDetails";
 import Login from "./pages/Home/Login";
-import Doctors from "./pages/medical/Doctors/Doctors";
+
 import RegisterHomepage from "./pages/Home/RegisterHomepage";
 import PetParentRegistration from "./pages/medical/Registration/PetParentRegistration";
-import VetRegistration from "./pages/medical/Registration/PetParentRegistration";
-import Contact from "./pages/Home/Contact";
+import VetRegistration from "./pages/medical/Registration/VetRegistration";
+
 import Services from "./pages/Home/Services";
 import Dashboard from "./pages/medical/Vets/Dashboard";
 import ManageSlots from "./pages/medical/Vets/ManageSlots/ManageSlots";
-import AddSlots from "./pages/medical/Vets/ManageSlots/AddSlots";
+import AddSlots from "./pages/medical/Vets/ManageSlots/pages/AddSlots";
 import GetSlots from "./pages/medical/Vets/ManageSlots/GetSlots";
 import DashboardProfile from "./pages/medical/Vets/Profile/dashboardProfile";
 import Appointments from "./pages/medical/Vets/Appointments/Appointments";
 import Sage from "./pages/medical/AiBot/Sage";
 import VideoCall from "./pages/medical/Videocall/VideoCall";
 import Room from "./pages/medical/Videocall/Room/Room";
+import AllVets from "./pages/medical/VetForClient/AllVets";
 
 const App = () => {
   // const [user, setUser] = useRecoilState(userRole);
@@ -64,8 +65,8 @@ return(
         path="/home"
         element={<PublicLayout><Homepage /></PublicLayout>}
       />
-      <Route path="/doctors" element={<PublicLayout> <Doctors /> </PublicLayout>} />
-      <Route path="/doctors/:id" element={ <PublicLayout>  <DoctorDetails /> </PublicLayout>} />
+      
+      <Route path="/vet/:id" element={ <PublicLayout>  <VetDetails /> </PublicLayout>} />
 
       <Route path="/login" element={ <PublicLayout> <Login /> </PublicLayout>} />
       <Route path="/registration" element={ <PublicLayout> <RegisterHomepage />  </PublicLayout> } />
@@ -75,8 +76,13 @@ return(
       />
       <Route path="/registration/veterinarian" element={<PublicLayout> <VetRegistration /> </PublicLayout> } />
 
-      <Route path="/contact" element={ <PublicLayout>  <Contact /> </PublicLayout>} />
-      <Route path="/services" element={<PublicLayout> <Services /> </PublicLayout> } />
+      {/* <Route path="/contact" element={ <PublicLayout>  <Contact /> </PublicLayout>} /> */}
+      {/* <Route path="/services" element={<PublicLayout> <Services /> </PublicLayout> } /> */}
+
+      <Route path="/sage" element={<PublicLayout> <Sage/> </PublicLayout> } />
+      <Route path="/book-appointments" element={<PublicLayout> <Services /> </PublicLayout> } />
+      <Route path="/veterinarians" element={<PublicLayout> <AllVets /> </PublicLayout> } />
+
 
       <Route
         path="/vet/dashboard"

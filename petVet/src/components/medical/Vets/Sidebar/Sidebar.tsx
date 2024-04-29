@@ -1,23 +1,56 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const Sidebar = () => {
+
+  const [vetDetails,setVetDetails]=useState(null);
+  const tokenInStorage = localStorage.getItem("Authorization");
+
+  let token = null;
+
+  if (tokenInStorage) {
+    const tokenParts = tokenInStorage.split(" ");
+    if (tokenParts.length === 2 && tokenParts[0] === "Bearer") {
+      token = tokenParts[1];
+    }
+  }
+
+  const getUserDetails = async () => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3000/veterinarian/getVetDetails",
+        { jwtToken: token }
+      );
+      setVetDetails(data.vetDetails);
+      console.log(data.vetDetails);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      // Handle errors gracefully here
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      getUserDetails();
+    }
+  }, [token]);
   const navigate = useNavigate();
 
-  const handleProfile =()=>{
-    navigate("/vet/dashboard")
-  }
-  const handleAppointments =()=>{
-    navigate("/vet/appointments")
-  }
-  const handleManageSlots =()=>{
-    navigate("/vet/manageSlots")
-  }
-  const handleVideoCall =()=>{
-    navigate("/vet/video-call")
-  }
+  const handleProfile = () => {
+    navigate("/vet/dashboard");
+  };
+  const handleAppointments = () => {
+    navigate("/vet/appointments");
+  };
+  const handleManageSlots = () => {
+    navigate("/vet/manageSlots");
+  };
+  const handleVideoCall = () => {
+    navigate("/vet/video-call");
+  };
   const handleMessages = () => {
     navigate("/vet/messages");
   };
@@ -32,16 +65,19 @@ const Sidebar = () => {
     <main className="w-full bg-primaryBlue h-screen flex flex-col justify-between items-center">
       <div className="flex flex-row justify-evenly h-1/4 w-full items-center bg-primaryBlue py-8 ">
         {/* profile */}
-        <div onClick={handleProfile} className="h-full w-full cursor-pointer mx-4 py-4 bg-creamContrast rounded-tr-2xl rounded-bl-2xl text-black flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
+        {vetDetails && (
+        <div
+          onClick={handleProfile}
+          className="h-full w-full cursor-pointer mx-4 py-4 bg-creamContrast rounded-tr-2xl rounded-bl-2xl text-black flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300"
+        >
           <h3 className="font-bold text-3xl flex flex-col gap-3">
-            Hello, <span>Dr. Hemant</span>
+            Hello,Dr. <span className="capitalize" >{vetDetails.name} </span>
           </h3>
         </div>
+        )}
       </div>
 
       <div className="h-3/4 w-full ">
-
-        
         {/* appointments */}
         <div
           className=" h-1/6 w-full flex flex-row justify-center items-center "
@@ -101,7 +137,10 @@ const Sidebar = () => {
         </div>
 
         {/* logout */}
-        <div className=" h-1/6 w-full flex flex-row justify-center items-center " onClick={handleLogout}>
+        <div
+          className=" h-1/6 w-full flex flex-row justify-center items-center "
+          onClick={handleLogout}
+        >
           <button className="font-semibold text-2xl cursor-pointer h-full w-full text-creamContrast flex flex-row items-center justify-center gap-2">
             Logout{" "}
             <span>

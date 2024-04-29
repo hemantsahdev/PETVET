@@ -32,6 +32,19 @@ export default withMT({
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.zoom-in': {
+          transition: 'transform 0.3s ease',
+        },
+        '.zoom-in:hover': {
+          transform: 'scale(1.1)',
+        },
+      };
+
+      addUtilities(newUtilities, ['hover']);
+    },
+  ],
 });
 
