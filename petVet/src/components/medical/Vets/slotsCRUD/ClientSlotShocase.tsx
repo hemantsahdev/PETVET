@@ -14,20 +14,28 @@ function formatTimeString(timeString) {
 
   return formattedTime;
 }
-const ClientSlotShocase = ({ slot }) => {
-  console.log(slot);
+const ClientSlotShocase = ({ slot, onSelect, isSelected }) => {
+  const handleClick = () => {
+    onSelect(slot);
+  };
+
   return (
-    < main className="h-16 w-48" > 
-      {slot && (
-        <main className="cursor-pointer zoom-in hover:bg-orange-300 hover:border-creamContrast h-16 w-48 bg-white rounded-lg flex flex-row items-center justify-center p-1 border border-blue-700 border-4">
-          <div className="flex flex-row items-center justify-center text-lg font-semibold gap-1">
-            <h2>{formatTimeString(slot.startTime)} -</h2>
-            <h2>{formatTimeString(slot.endTime)} </h2>
-          </div>
-        </main>
-      )}
+    <main
+      className={`h-16 w-48 cursor-pointer zoom-in p-1 hover:bg-orange-300 hover:border-creamContrast ${
+        isSelected ? 'bg-orange-300 border-creamContrast' : 'bg-white'
+      } rounded-lg flex flex-row items-center justify-center border border-blue-700 border-4`}
+      onClick={handleClick}
+    >
+      <div className="flex flex-row items-center justify-center text-lg font-semibold gap-1">
+        <h2>{formatTimeString(slot.startTime)} -</h2>
+        <h2>{formatTimeString(slot.endTime)}</h2>
+      </div>
     </main>
   );
 };
 
+
 export default ClientSlotShocase;
+
+
+

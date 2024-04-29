@@ -28,6 +28,31 @@ const petParentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  bookedSlots:[
+    {
+      
+      slot: {
+        date: {
+          type: Date,
+          required: true,
+        },
+        startTime: {
+          type: Date,
+          required: true,
+        },
+        endTime: {
+          type: Date,
+          required: true,
+        },
+      },
+     
+      mode: {
+        type: String,
+        enum: ['offline', 'online'],
+        
+      },
+    }
+  ],
 });
 
 const PETPARENT = mongoose.model("PETPARENT", petParentSchema);

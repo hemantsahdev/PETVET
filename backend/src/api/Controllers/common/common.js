@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const APPOINTMENT = require("../../Models/appointment/appointment");
 const { extractJwtToken } = require("../../Helpers/CommonHelper");
+const VETERINARIAN = require("../../Models/user/veterinarian");
 
 const loginController = async (req, res) => {
   // jis bhi way se user login krega..vo field hum isse assign kr denge . usernameOrEmail is just like another parameter . no actual operater in the name
@@ -82,7 +83,71 @@ const userRoleController = async (req, res) => {
 
 };
 
+const setAppointment = async (req, res) => {
+  try {
+    const { veterinarianId, petParentId, startTime, endTime, mode } = req.body;
+
+    // Update veterinarian's booked slots
+    await VETERINARIAN.findByIdAndUpdate(
+      veterinarianId,
+      {
+        $push: {
+          bookedSlots: {
+            slot: { startTime, endTime },
+            mode
+          }
+        }
+      },
+      { new: true }
+    );
+
+    // Create appointment for pet parent
+    const appointment = new APPOINTMENT({
+      petParent: petParentId,
+      startTime,
+      endTime,
+      mode
+    });
+    await appointment.save();
+
+    // Update veterinarian's appointments
+    await VETERINARIAN.findByIdAndUpdate(
+      veterinarianId,
+      {
+        $push: { appointments: appointment._id }
+      },
+      { new: true }
+    );
+
+    // Remove the booked slot from veterinarian's available slots
+    await VETERINARIAN.findOneAndUpdate(
+      { _id: veterinarianId, 'availableSlots.date': startTime },
+      { $pull: { 'availableSlots.$.slots': { startTime, endTime } } },
+      { new: true }
+    );
+
+    // Update pet parent's booked slots
+    await PETPARENT.findByIdAndUpdate(
+      petParentId,
+      {
+        $push: {
+          bookedSlots: {
+            slot: { startTime, endTime },
+            mode
+          }
+        }
+      },
+      { new: true }
+    );
+
+    res.status(200).json({ message: 'Appointment set successfully' });
+  } catch (error) {
+    console.error('Error setting appointment:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 
 
-module.exports = { loginController, userRoleController };
+
+module.exports = { loginController, userRoleController,setAppointment };

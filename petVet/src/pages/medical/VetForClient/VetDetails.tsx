@@ -19,6 +19,8 @@ import { BASE_URL } from "../../../Config/Config";
 const VetDetails = () => {
   const [vetDetails, setVetDetails] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null); // Initialize selectedDate as null
+  const [selectedMode, setSelectedMode] = useState(null);
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   const { id } = useParams();
 
@@ -59,6 +61,35 @@ const VetDetails = () => {
 
   const handleDateClick = (date) => {
     setSelectedDate(date);
+  };
+  const handleSlotSelect = (slot) => {
+    setSelectedSlot(slot);
+  };
+  const handleBookNow =async () => {
+    if (selectedSlot && selectedMode) {
+      console.log("Selected Slot:", selectedSlot);
+      console.log("Selected Mode:", selectedMode);
+      // callingStripe();
+
+      const {data}=await axios.post(`${BASE_URL}/user/setAppointment`,{selectedSlot,selectedMode,vetDetails})
+
+      console.log(data.message);
+
+    } else {
+      console.log("Please select a slot and mode before booking.");
+    }
+  };
+  const callingStripe = async () => {
+    const data = {
+      vetDetails,selectedSlot,selectedMode
+    };
+    try {
+      const response = await axios.post("http://localhost:3000/create-checkout-session", data);
+      const url = response.data.url;
+      window.location = url;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -153,25 +184,67 @@ const VetDetails = () => {
             </div>
 
             {/* slots */}
-            <div className="h-1/2 px-24 pt-8 w-screen">
-              {vetDetails.availableSlots
-                .filter((slot) => slot.date === selectedDate)
-                .map((filteredSlot) => (
-                  <div
-                    key={filteredSlot._id}
-                    className="flex flex-row gap-8 justify-center items-center h-24"
-                  >
-                    {filteredSlot.slots.map((slotItem, index) => (
-                      <ClientSlotShocase key={index} slot={slotItem} />
+            <div className="h-1/2 px-24 pt-8">
+              <table className="w-full">
+                <tbody>
+                  {vetDetails.availableSlots
+                    .filter((slot) => slot.date === selectedDate)
+                    .map((filteredSlot) => (
+                      <tr key={filteredSlot._id} className="">
+                        {filteredSlot.slots.map(
+                          (slotItem, index) =>
+                            index % 6 === 0 && (
+                              <tr key={index} className="my-4">
+                                {[...Array(6)].map((_, i) => (
+                                  <td key={i} className="px-4">
+                                    {/* Parent component */}
+                                    <ClientSlotShocase
+                                      slot={filteredSlot.slots[index + i]}
+                                      onSelect={handleSlotSelect}
+                                      isSelected={
+                                        selectedSlot ===
+                                        filteredSlot.slots[index + i]
+                                      }
+                                    />
+                                  </td>
+                                ))}
+                              </tr>
+                            )
+                        )}
+                      </tr>
                     ))}
-                  </div>
-                ))}
+                </tbody>
+              </table>
             </div>
 
-            <div className="h-1/5 w-full mt-12 flex flex-row justify-end items-center px-36 ">
+            <div className="h-1/5 w-full mt-12 flex flex-row justify-center gap-16 items-center px-36 ">
+              <div className="flex flex-row gap-4 ">
+                <label className="text-2xl font-bold " >
+                  <input
+                    type="radio"
+                    name="mode"
+                    value="online"
+                    onChange={(e) => setSelectedMode(e.target.value)}
+                  />
+                  Online
+                </label>
+
+                <label className="text-2xl font-bold">
+                  <input
+                    type="radio"
+                    name="mode"
+                    value="offline"
+                    onChange={(e) => setSelectedMode(e.target.value)}
+                    
+                  />
+                  Offline
+                </label>
+              </div>
+
               <button
                 type="submit"
                 className="border border-amber-800  border-4 h-16 w-40 bg-magentaHighlight text-white rounded-xl font-bold text-xl hover:bg-green-600 flex flex-row items-center justify-center gap-2"
+                onClick={handleBookNow}
               >
                 Book Now <FontAwesomeIcon icon={faArrowRight} />{" "}
               </button>

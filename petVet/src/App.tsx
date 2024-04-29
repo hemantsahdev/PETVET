@@ -82,7 +82,10 @@ return(
       <Route path="/sage" element={<PublicLayout> <Sage/> </PublicLayout> } />
       <Route path="/book-appointments" element={<PublicLayout> <Services /> </PublicLayout> } />
       <Route path="/veterinarians" element={<PublicLayout> <AllVets /> </PublicLayout> } />
-
+      <Route
+        path="/user/video-call"
+        element={<PublicLayout><VideoCall /></PublicLayout>}
+      />
 
       <Route
         path="/vet/dashboard"

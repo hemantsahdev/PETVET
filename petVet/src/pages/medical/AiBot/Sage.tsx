@@ -91,55 +91,58 @@ const Sage = () => {
   };
 
   return (
-    <main className="h-full w-full py-8  ">
-      <div className="flex flex-col items-center justify-between w-full h-full ">
-        <div className="h-5/6 w-full border border-black flex flex-col px-36 ">
-          {/* <div className="h-5/6 w-3/4 text-center flex flex-col items-center justify-start   text-gray-700 ">
-          <h1 className="mt-12">
-            <span className="text-8xl font-bold bg-gradient-to-r from-blue-900 via-pink-800 to-blue-600 bg-clip-text text-transparent">
-              Sage,
-            </span>{" "}
-           <span className="text-4xl font-semibold italic">  Pawsitively here for your pet needs. </span> 
-          </h1>
-            </div> */}
-
+    <main className="h-full w-full py-8">
+      <div className="flex flex-col items-center justify-between w-full h-full">
+        <div className="h-5/6 w-full border border-black flex flex-col px-36">
           {messages.map((message, index) => (
             <div
-              key={`${message.sender}-${index}`}
-              className={`flex justify-${
-                message.sender === "user" ? "end" : "start"
+              key={`${message.sender}-${index}`} // Ensure a unique key
+              className={`flex  ${
+                message.text !== "" ? "justify-end" : "justify-start"
               } mb-4`}
             >
               <div
+                style={{ width: "fit-content" }}
                 className={`rounded-lg py-2 px-4 ${
-                  message.sender === "user"
+                  message.text !== ""
                     ? "bg-blue-500 text-white self-end"
-                    : "bg-gray-200 text-black"
+                    : "bg-gray-200 text-black self-start"
                 }`}
               >
                 <p className="break-words">{message.text}</p>
-                {message.llmResponse && (
+              </div>
+              {message.llmResponse && (
+                <div
+                  style={{ width: "fit-content" }}
+                  className={`rounded-lg py-2 px-4 ${
+                    message.llmResponse !== ""
+                      ? "bg-blue-500 text-white self-start"
+                      : "bg-gray-200 text-black self-end"
+                  }`}
+                >
                   <p className="text-sm italic break-words">
                     {message.llmResponse}
                   </p>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        <div className="h-1/6 w-2/3 py-4 flex flex-row itmes-center justify-center gap-4">
+        <div className="h-1/6 w-2/3 py-4 flex flex-row items-center justify-center gap-4">
           <input
             type="text"
             className="bg-creamContrast w-5/6 h-full border border-black rounded-3xl pl-4 text-xl font-semibold"
             placeholder="Enter your prompt here!"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
+            aria-label="Enter your prompt here" // Accessibility improvement
           />
           <button
             type="submit"
             className="border border-white px-6 rounded-full hover:bg-primaryBlue flex flex-row items-center justify-center"
             onClick={handleMessageSubmit}
+            aria-label="Send Message" // Accessibility improvement
           >
             <FontAwesomeIcon icon={faPaperPlane} size="2x" />
           </button>

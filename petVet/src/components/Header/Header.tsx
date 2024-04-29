@@ -10,9 +10,10 @@ import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBookBookmark,
+  faVideoCamera,
   faRobot,
   faUserDoctor,
+  faHome
 } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
@@ -36,7 +37,7 @@ const Header = () => {
         color="blue-gray"
         className="flex items-center gap-x-2 p-1 font-medium text-xl"
       >
-        <FontAwesomeIcon icon={faBookBookmark} />
+        <FontAwesomeIcon icon={faHome} />
 
         <a href="/home" className="flex items-center">
           Home
@@ -49,10 +50,10 @@ const Header = () => {
         color="blue-gray"
         className="flex items-center gap-x-2 p-1 font-medium text-xl"
       >
-        <FontAwesomeIcon icon={faBookBookmark} />
+        <FontAwesomeIcon icon={faVideoCamera} />
 
-        <a href="/book-appointments" className="flex items-center">
-          Book Appointment
+        <a href="/user/video-call" className="flex items-center">
+          Video Cal
         </a>
       </Typography>
       <Typography
